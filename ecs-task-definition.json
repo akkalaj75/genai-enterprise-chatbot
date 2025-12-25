@@ -1,0 +1,59 @@
+{
+  "family": "genai-chatbot",
+  "networkMode": "awsvpc",
+  "requiresCompatibilities": [
+    "FARGATE"
+  ],
+  "cpu": "1024",
+  "memory": "2048",
+  "containerDefinitions": [
+    {
+      "name": "genai-chatbot",
+      "image": "ACCOUNT_ID.dkr.ecr.us-east-1.amazonaws.com/genai-chatbot:latest",
+      "portMappings": [
+        {
+          "containerPort": 5000,
+          "protocol": "tcp"
+        }
+      ],
+      "environment": [
+        {
+          "name": "AZURE_OPENAI_API_KEY",
+          "value": "your_api_key"
+        },
+        {
+          "name": "AZURE_OPENAI_ENDPOINT",
+          "value": "https://your-instance.openai.azure.com/"
+        },
+        {
+          "name": "AZURE_DEPLOYMENT_NAME",
+          "value": "gpt-35-turbo"
+        },
+        {
+          "name": "SECRET_KEY",
+          "value": "your-secret-key"
+        }
+      ],
+      "logConfiguration": {
+        "logDriver": "awslogs",
+        "options": {
+          "awslogs-group": "/ecs/genai-chatbot",
+          "awslogs-region": "us-east-1",
+          "awslogs-stream-prefix": "ecs"
+        }
+      },
+      "healthCheck": {
+        "command": [
+          "CMD-SHELL",
+          "curl -f http://localhost:5000/health || exit 1"
+        ],
+        "interval": 30,
+        "timeout": 10,
+        "retries": 3,
+        "startPeriod": 60
+      }
+    }
+  ],
+  "executionRoleArn": "arn:aws:iam::ACCOUNT_ID:role/ecsTaskExecutionRole",
+  "taskRoleArn": "arn:aws:iam::ACCOUNT_ID:role/ecsTaskRole"
+}

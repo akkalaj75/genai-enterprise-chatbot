@@ -1,0 +1,26 @@
+Company Policy Documentation
+============================
+
+This is a sample document used for RAG (Retrieval-Augmented Generation) testing.
+
+**Remote Work Policy**
+- Employees can work remotely up to 3 days per week
+- Must maintain core hours: 10 AM - 3 PM EST
+- Weekly team meetings are mandatory and in-person
+
+**Leave Policy**
+- Annual leave: 20 days per year
+- Sick leave: 10 days per year
+- Maternity leave: 6 months
+- Paternity leave: 2 weeks
+
+**Code of Conduct**
+- Maintain professional communication at all times
+- Respect diversity and inclusion
+- Report violations to HR within 48 hours
+
+**Expense Policy**
+- Travel expenses must be pre-approved
+- Hotel: Max $200/night
+- Meals: Max $50/day
+- Submit receipts within 30 days

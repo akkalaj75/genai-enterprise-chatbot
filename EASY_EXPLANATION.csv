@@ -1,0 +1,47 @@
+Section,Subsection,Content
+🤖 WHAT WE BUILT,Overview,"We created a smart chatbot that answers questions about company documents using Artificial Intelligence (AI)"
+🤖 WHAT WE BUILT,Simple Analogy,"Think of it like having a helper robot that reads all your company papers and remembers them, so whenever you ask a question, it can look through those papers and give you the answer!"
+📱 HOW IT WORKS,The Chatbot App,"It's a program that runs on a computer, listens for questions from people, and sends back answers"
+📱 HOW IT WORKS,Smart Reading System (RAG),"RAG = Retrieval Augmented Generation. It means: Find information + Give smart answers. Like when you search for something in a book AND then explain it in your own words"
+📱 HOW IT WORKS,AI Brain,"Uses Azure OpenAI (a super-smart AI from Microsoft). It's like having a really smart tutor that understands questions and can write natural answers that make sense"
+📱 HOW IT WORKS,Security System,"Uses JWT Tokens (secret passwords). Only lets logged-in users ask questions. Admin can log in with: admin / admin123"
+💻 TECHNOLOGY USED,Programming Language,Python 🐍 - The computer language we used to build everything. Like the language a robot understands
+💻 TECHNOLOGY USED,Web Framework,"FastAPI ⚡ - This lets people access the chatbot through the internet. Like the front desk of a building that handles visitors"
+💻 TECHNOLOGY USED,Storage & Documents,"Stored in sample_docs folder: company_policy.txt (Rules of the company), benefits_info.txt (What workers get)"
+💻 TECHNOLOGY USED,AI Services,"Azure OpenAI - The super-smart AI brain, FAISS - Helps find similar documents quickly (like an index in a book)"
+💻 TECHNOLOGY USED,Testing,"Pytest - Tests to make sure everything works (like a checklist)"
+🔌 6 MAIN ENDPOINTS,/health endpoint,Checks if chatbot is awake - Ask: Are you working?
+🔌 6 MAIN ENDPOINTS,/ endpoint,Welcome message - Says: Hello! What can I help?
+🔌 6 MAIN ENDPOINTS,/api/info endpoint,Shows chatbot info - Ask: What version are you?
+🔌 6 MAIN ENDPOINTS,/auth/login endpoint,Log in with username/password - Username: admin / Password: admin123
+🔌 6 MAIN ENDPOINTS,/api/chat endpoint,Ask a question - Example: What's the remote work policy?
+🔌 6 MAIN ENDPOINTS,/api/evaluate endpoint,Test how good the AI is - Scores how well it answers
+📁 FILE STRUCTURE,Main Code,app/ folder contains the chatbot code
+📁 FILE STRUCTURE,Control Center,app/main.py - The main control center
+📁 FILE STRUCTURE,Login System,app/services/auth.py - Handles login
+📁 FILE STRUCTURE,AI Connection,app/services/azure_openai.py - Connects to AI brain
+📁 FILE STRUCTURE,Smart Reading,app/services/rag_service.py - Smart reading system
+📁 FILE STRUCTURE,Website,app/ui/index.html - Website interface for users
+📁 FILE STRUCTURE,Documents,data/sample_docs/ folder - Where company documents are stored
+📁 FILE STRUCTURE,Tests,tests/ folder - test_api.py and test_services.py - Tests to check everything
+📁 FILE STRUCTURE,Requirements,requirements.txt - List of tools needed
+🚀 HOW TO USE - STEP 1,Start the Server,"Run: python -m uvicorn app.main:app --host 127.0.0.1 --port 5000 (Like waking up the chatbot)"
+🚀 HOW TO USE - STEP 2,Visit Website,"Go to: http://127.0.0.1:5000/docs"
+🚀 HOW TO USE - STEP 3,Log In,"Username: admin, Password: admin123"
+🚀 HOW TO USE - STEP 4,Ask Question,"Example: What is the remote work policy?"
+🚀 HOW TO USE - STEP 5,Get Answer,"The chatbot looks through documents and answers!"
+🧠 WHAT THE AI DOES,Reads Documents,Learns what's in company papers
+🧠 WHAT THE AI DOES,Finds Information,Searches for information related to your question
+🧠 WHAT THE AI DOES,Thinks About Answer,Uses AI to write a good response
+🧠 WHAT THE AI DOES,Checks Itself,Makes sure the answer is trustworthy
+🧠 WHAT THE AI DOES,Sends Answer,Gives you the result!
+✅ TEST RESULTS,Health Check,✅ Works
+✅ TEST RESULTS,Login,✅ Works
+✅ TEST RESULTS,Chat,✅ Works
+✅ TEST RESULTS,Authentication,✅ Works
+✅ TEST RESULTS,All 6 Endpoints,✅ Working
+✅ TEST RESULTS,Final Result,100% WORKING! 🎉
+🌍 REAL-WORLD USE,Company Documents,"Employee handbooks, Policy documents, Training materials"
+🌍 REAL-WORLD USE,Employee Questions,"When do I get vacation days?, What's the dress code?, How do I request time off?"
+🌍 REAL-WORLD USE,Benefit,AI chatbot answers instantly by looking through all documents! 🚀
+📝 ONE SENTENCE SUMMARY,Summary,"We built a smart robot that reads company documents and answers employee questions using AI! 🤖📚✨"

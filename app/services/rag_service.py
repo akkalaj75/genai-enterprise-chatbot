@@ -5,7 +5,6 @@ RAG Service - Retrieval Augmented Generation pipeline with FAISS
 import os
 from typing import List, Tuple
 import logging
-import numpy as np
 import pickle
 from pathlib import Path
 
@@ -93,11 +92,17 @@ class RAGService:
                 return False
             
             # Create FAISS index
-            embeddings_array = np.array(embeddings).astype('float32')
-            dimension = embeddings_array.shape[1]
+            try:
+                import numpy as np
+                embeddings_array = np.array(embeddings).astype('float32')
+                dimension = embeddings_array.shape[1]
+                
+                self.vector_store = faiss.IndexFlatL2(dimension)
+                self.vector_store.add(embeddings_array)
+            except ImportError:
+                logger.warning("FAISS requires numpy - vector store build skipped")
+                return False
             
-            self.vector_store = faiss.IndexFlatL2(dimension)
-            self.vector_store.add(embeddings_array)
             self.embeddings = embeddings
             
             # Save index
@@ -146,6 +151,7 @@ class RAGService:
     def _vector_retrieve(self, query: str, top_k: int) -> List[Tuple[str, float]]:
         """Vector-based retrieval using FAISS"""
         try:
+            import numpy as np
             # Generate query embedding
             query_embedding = self.embedding_service.generate_embeddings([query])
             if not query_embedding:

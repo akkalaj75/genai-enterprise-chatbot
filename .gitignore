@@ -12,3 +12,15 @@ build/
 *.swo
 coverage/
 .nyc_output/
+__pycache__/
+*.pyc
+*.pyo
+*.pyd
+.pytest_cache/
+.coverage
+htmlcov/
+venv/
+env/
+*.egg-info/
+.eggs/
+server.log

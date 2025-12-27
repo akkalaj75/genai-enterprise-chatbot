@@ -6,13 +6,11 @@ import os
 from datetime import datetime, timedelta, timezone
 from typing import Optional
 import jwt
-from fastapi import Depends, HTTPException, status
-from fastapi.security import HTTPBearer, HTTPAuthCredentials
+from fastapi import Depends, HTTPException, status, Header
 import logging
 
 logger = logging.getLogger(__name__)
 
-security = HTTPBearer()
 SECRET_KEY = os.getenv("SECRET_KEY", "your-secret-key-change-in-production")
 ALGORITHM = "HS256"
 ACCESS_TOKEN_EXPIRE_MINUTES = 30
@@ -38,10 +36,21 @@ def create_access_token(user_id: str, username: str, expires_delta: Optional[tim
     encoded_jwt = jwt.encode(to_encode, SECRET_KEY, algorithm=ALGORITHM)
     return encoded_jwt
 
-async def verify_token(credentials: HTTPAuthCredentials = Depends(security)) -> TokenData:
-    """Verify JWT token"""
+async def verify_token(authorization: Optional[str] = Header(None)) -> TokenData:
+    """Verify JWT token from Authorization header"""
+    if not authorization:
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Missing authorization header"
+        )
+    
     try:
-        payload = jwt.decode(credentials.credentials, SECRET_KEY, algorithms=[ALGORITHM])
+        # Extract token from "Bearer <token>" format
+        scheme, token = authorization.split()
+        if scheme.lower() != "bearer":
+            raise ValueError("Invalid authorization scheme")
+        
+        payload = jwt.decode(token, SECRET_KEY, algorithms=[ALGORITHM])
         user_id: str = payload.get("user_id")
         username: str = payload.get("username")
         
@@ -61,6 +70,11 @@ async def verify_token(credentials: HTTPAuthCredentials = Depends(security)) -> 
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Invalid token"
+        )
+    except (ValueError, IndexError):
+        raise HTTPException(
+            status_code=status.HTTP_401_UNAUTHORIZED,
+            detail="Invalid authorization header format. Use: Authorization: Bearer <token>"
         )
 
 class AuthService:
